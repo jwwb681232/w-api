@@ -54,5 +54,4 @@ class Manager extends Model
             'registration_id',
             'status',
         ];
-
 }
