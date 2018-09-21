@@ -8,6 +8,7 @@
 
 namespace App\Api\V1\Managers\Controllers;
 
+use App\Api\V1\Managers\Criteria\Auth\LoginCriteria;
 use Illuminate\Http\Request;
 use App\Api\V1\Managers\Validators\AuthValidator;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -23,6 +24,34 @@ class AuthController extends BaseController
     {
         $this->repository = $repository;
         $this->validator  = $validator;
+    }
+
+    /**
+     * @SWG\POST(path="/index.php/api/managers/auth/login",
+     *   tags={"managers/auth"},
+     *   summary="登录",
+     *   description="登录",
+     *   operationId="login",
+     *   consumes={"application/x-www-form-urlencoded"},
+     *   @SWG\Parameter(in="formData",  name="email",type="string",  description="邮箱", required=true),
+     *   @SWG\Parameter(in="formData",  name="password",type="string",  description="密码", required=true),
+     *   @SWG\Parameter(in="header",  name="Content-Type",  type="string",  description="application/x-www-form-urlencoded", default="application/x-www-form-urlencoded",required=true),
+     *   @SWG\Parameter(in="header",  name="Accept",  type="string",  description="版本号", default="application/x.w-api.v1+json",required=true),
+     *   @SWG\Response(response=403, description="无权限"),
+     *   @SWG\Response(response="500", description=""),
+     * )
+     */
+    public function login(Request $request)
+    {
+        try {
+            $this->validator->with($request->all())->passesOrFail('login');
+            $this->repository->pushCriteria(LoginCriteria::class);
+            $data = $this->repository->login($request);
+
+            return ApiSuccess($data);
+        } catch (ValidatorException $e) {
+            return ApiValidatorFail($e->getMessageBag());
+        }
     }
 
     /**
@@ -52,5 +81,23 @@ class AuthController extends BaseController
         } catch (ValidatorException $e) {
             return ApiValidatorFail($e->getMessageBag());
         }
+    }
+
+    /**
+     * @SWG\Get(path="/index.php/api/managers/auth/test",
+     *   tags={"managers/auth"},
+     *   summary="test",
+     *   description="test",
+     *   operationId="test",
+     *   consumes={"application/x-www-form-urlencoded"},
+     *   @SWG\Parameter(in="header",  name="Content-Type",  type="string",  description="application/x-www-form-urlencoded", default="application/x-www-form-urlencoded",required=true),
+     *   @SWG\Parameter(in="header",  name="Accept",  type="string",  description="版本号", default="application/x.w-api.v1+json",required=true),
+     *   @SWG\Response(response=403, description="无权限"),
+     *   @SWG\Response(response="500", description=""),
+     * )
+     */
+    public function test(Request $request)
+    {
+        return ApiSuccess([123]);
     }
 }

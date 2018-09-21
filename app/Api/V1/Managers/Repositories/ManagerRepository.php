@@ -10,14 +10,38 @@ namespace App\Api\V1\Managers\Repositories;
 
 use App\Entities\Manager;
 use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Hash;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Validator\Exceptions\ValidatorException;
-
 class ManagerRepository extends BaseRepository
 {
     public function model()
     {
         return Manager::class;
+    }
+
+    /**
+     * @param $request
+     *
+     * @return array
+     * @throws ValidatorException
+     */
+    public function login($request)
+    {
+        $manager = $this->first();
+
+        if ( ! $manager) {
+            throw new ValidatorException(new MessageBag(['Can\'t find this e-mail account']));
+        }
+
+        if ( ! Hash::check($request->password, $manager->password)) {
+            throw new ValidatorException(new MessageBag(['Incorrect password for account']));
+        }
+
+        $token = auth('manager')->attempt(['id'=>$manager->id]);
+
+        return ['manager' => $manager, 'token' => $token];
+
     }
 
     /**
