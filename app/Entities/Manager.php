@@ -48,10 +48,6 @@ class Manager extends Model
             'password',
             'remember_token',
             'created_at',
-            'updated_at',
-            'type',
-            'has_employer',
-            'registration_id',
-            'status',
+            'updated_at'
         ];
 }
