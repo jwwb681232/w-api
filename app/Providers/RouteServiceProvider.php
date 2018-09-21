@@ -39,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapDingoApiRoutes();
         //
     }
 
@@ -69,5 +70,13 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    public function mapDingoApiRoutes()
+    {
+        $dingoRoutePath = \File::files(base_path('routes\dingo'));
+        foreach ($dingoRoutePath as $file) {
+            Route::middleware('api')->group(base_path('routes/dingo/'.$file->getFileName()));
+        }
     }
 }
