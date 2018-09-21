@@ -46,11 +46,12 @@ class JwtAuth
      */
     private function validJwt($request, $guard, $guest)
     {
-        if ($guest && $request->header('authorization')) {
+        $this->parseJwt($guard);
+        /*if ($guest && $request->header('authorization')) {
             $this->parseJwt($guard);
         } elseif ( ! $guest) {
             $this->parseJwt($guard);
-        }
+        }*/
     }
 
     /**
