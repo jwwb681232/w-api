@@ -75,8 +75,8 @@ return [
             'model' => App\User::class,
         ],
 
-        'merchant' => [
-            'driver' => 'EloquentMerchant',
+        'manager' => [
+            'driver' => 'EloquentManager',
             'model' => App\Entities\Manager::class,
         ],
 

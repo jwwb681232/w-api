@@ -36,4 +36,22 @@ if ( ! function_exists('ApiValidatorFail')) {
     }
 }
 
+if ( ! function_exists('ApiAccessDenied')) {
+    /**
+     * Api 请求拒绝访问
+     *
+     * @param array $message
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    function ApiAccessDenied($message = ['AccessDenied'])
+    {
+        $code                    = 403;
+        $response['message']     = $message;
+        $response['status_code'] = $code;
+
+        return response($response, $code);
+    }
+}
+
 

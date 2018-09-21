@@ -16,19 +16,12 @@ class AuthValidator extends LaravelValidator implements ValidatorInterface
     protected $rules= [
             'login' => [
                 'email' => 'required|email|min:5',
-                'password'=>'required|between:8,20',
+                'password'=>'required|between:6,30',
             ],
-            'forgetPasswordSendMail'=>[
-                'email'=>'required|email|min:5'
-            ],
-            'forgetPassword'=>[
-                'email'=>'required|email|min:5',
-                'captcha'=>'required|size:6',
-                'password'=>'required|between:8,20|confirmed',
-            ],
-            'updatePassword'=>[
-                'old_password'=>'required||between:8,20',
-                'password'=>'required|between:8,20|confirmed',
+            'register'=>[
+                'email' => 'required|email|between:5,30|unique:managers',
+                'name' => 'required|between:3,30',
+                'password'=>'required|confirmed|between:6,30',
             ],
         ];
 

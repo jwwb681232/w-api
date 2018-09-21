@@ -20,10 +20,21 @@ class ManagerRepository extends BaseRepository
         return Manager::class;
     }
 
-    public function login($request)
+    /**
+     * @param $request
+     *
+     * @return array
+     * @throws ValidatorException
+     */
+    public function register($request)
     {
-        return $request->all();
-        //$this->model->findOrFail(1);
-        //throw new ValidatorException(new MessageBag(['123'=>'123123214123']));
+        $data['name']     = $request->name;
+        $data['email']    = $request->email;
+        $data['password'] = bcrypt($request->password);
+        if ($manager = $this->create($data)) {
+            $token = auth('manager')->attempt(['id' => $manager->id]);
+            return ['manager'=>$manager,'token'=>$token];
+        }
+        throw new ValidatorException(new MessageBag(['Http Exception']));
     }
 }

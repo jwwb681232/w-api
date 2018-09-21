@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
+use App\ApiAuth\Providers\EloquentManagerProvider;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -25,6 +26,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        \Auth::provider('EloquentManager', function($app, array $config) {
+            return new EloquentManagerProvider($app['hash'], $config['model']);
+        });
         //
     }
 }

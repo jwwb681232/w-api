@@ -8,9 +8,9 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Manager extends Model
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class Manager extends Authenticatable implements JWTSubject
 {
     /**
      * 表名
@@ -18,6 +18,9 @@ class Manager extends Model
      * @var string
      */
     //protected $table = 'admins';
+
+
+    protected $guard = 'manager';
 
 
     /**
@@ -50,4 +53,22 @@ class Manager extends Model
             'created_at',
             'updated_at'
         ];
+
+    /**
+     * 获取主键
+     * @return string
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * 返回一个键值数组，其中包含要添加到JWT的任何自定义声明。
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }

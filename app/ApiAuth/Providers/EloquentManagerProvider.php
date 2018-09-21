@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Auth;
+namespace App\ApiAuth\Providers;
 
 use App\Entities\Manager;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 
-class EloquentMerchantProvider extends EloquentUserProvider
+class EloquentManagerProvider extends EloquentUserProvider
 {
     /**
      * 根据主键获取用户实例
