@@ -48,10 +48,10 @@
 <script src="./resources/swagger-ui-standalone-preset.js"> </script>
 <script>
     window.onload = function() {
-
+        var domain = document.location.origin;
         // Build a system
         const ui = SwaggerUIBundle({
-            url: "http://api-yyjobs.test/index.php/apidoc/v1/employee/json",
+            url: domain+"/index.php/apidoc/v1/managers/json",
             dom_id: '#swagger-ui',
             deepLinking: true,
             presets: [

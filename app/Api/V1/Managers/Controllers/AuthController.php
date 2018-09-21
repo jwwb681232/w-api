@@ -24,7 +24,7 @@ class AuthController extends BaseController
      *   @SWG\Parameter(in="formData",  name="password",type="string",  description="密码", required=true),
      *   @SWG\Parameter(in="formData",  name="registration_id",type="string",  description="设备id", required=false),
      *   @SWG\Parameter(in="header",  name="Content-Type",  type="string",  description="application/x-www-form-urlencoded", default="application/x-www-form-urlencoded",required=true),
-     *   @SWG\Parameter(in="header",  name="Accept",  type="string",  description="版本号", default="application/x.yyjobs-api.v3+json",required=true),
+     *   @SWG\Parameter(in="header",  name="Accept",  type="string",  description="版本号", default="application/x.w-api.v1+json",required=true),
      *   @SWG\Response(response="403", description="无权限"),
      *   @SWG\Response(response="500", description=""),
      * )

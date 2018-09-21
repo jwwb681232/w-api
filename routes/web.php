@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
+});*/
+
+//apidoc json
+Route::group([],function(){
+    Route::get('apidoc/v1/managers/json', '\App\Api\V1\Managers\Controllers\SwaggerController@getJson');
 });

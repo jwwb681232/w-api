@@ -5,7 +5,7 @@
  * Date: 2018/9/21
  * Time: 10:46
  */
-namespace App\Api\V4\Member\Controllers;
+namespace App\Api\V1\Managers\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 
