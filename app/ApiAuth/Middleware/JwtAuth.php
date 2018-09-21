@@ -17,8 +17,8 @@ class JwtAuth
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure                 $next
-     * @param                           $guard
-     * @param                           $guest
+     * @param   string                  $guard
+     * @param   bool                    $guest
      *
      * @return mixed
      */

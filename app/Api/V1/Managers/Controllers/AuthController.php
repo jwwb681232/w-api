@@ -8,11 +8,25 @@
 
 namespace App\Api\V1\Managers\Controllers;
 
+use App\Api\V1\Managers\Validators\AuthValidator;
+use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use App\Api\V1\Managers\Repositories\ManagerRepository;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class AuthController extends BaseController
 {
+    use Helpers;
+    public $repository;
+    public $validator;
+
+    public function __construct(ManagerRepository $repository, AuthValidator $validator)
+    {
+        $this->repository = $repository;
+        $this->validator  = $validator;
+    }
+
     /**
      * @SWG\POST(path="/index.php/api/managers/auth/login",
      *   tags={"managers/auth"},
@@ -30,6 +44,13 @@ class AuthController extends BaseController
      */
     public function login(Request $request)
     {
-        return response()->json($request->all());
+        try {
+            $this->validator->with($request->all())->passesOrFail('login');
+            $data = $this->repository->login($request);
+
+            return ApiSuccess($data);
+        } catch (ValidatorException $e) {
+            return ApiValidatorFail($e->getMessageBag());
+        }
     }
 }
