@@ -13,6 +13,7 @@ use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Hash;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Validator\Exceptions\ValidatorException;
+
 class ManagerRepository extends BaseRepository
 {
     public function model()
@@ -38,7 +39,7 @@ class ManagerRepository extends BaseRepository
             throw new ValidatorException(new MessageBag(['Incorrect password for account']));
         }
 
-        $token = auth('manager')->attempt(['id'=>$manager->id]);
+        $token = auth('manager')->attempt(['id' => $manager->id]);
 
         return ['manager' => $manager, 'token' => $token];
 
@@ -57,7 +58,8 @@ class ManagerRepository extends BaseRepository
         $data['password'] = bcrypt($request->password);
         if ($manager = $this->create($data)) {
             $token = auth('manager')->attempt(['id' => $manager->id]);
-            return ['manager'=>$manager,'token'=>$token];
+
+            return ['manager' => $manager, 'token' => $token];
         }
         throw new ValidatorException(new MessageBag(['Http Exception']));
     }

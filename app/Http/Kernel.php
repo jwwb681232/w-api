@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\ApiAuth\Middleware\JwtAuth;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -64,5 +65,7 @@ class Kernel extends HttpKernel
             'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
             'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
             'cross'         => \App\Http\Middleware\EnableCrossRequestMiddleware::class,
+            //JwtAuth
+            'auth.jwt'      => JwtAuth::class,
         ];
 }

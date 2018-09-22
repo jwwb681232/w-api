@@ -4,6 +4,7 @@ namespace App\ApiAuth\Middleware;
 
 use Closure;
 use Exception;
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -25,14 +26,14 @@ class JwtAuth
     public function handle($request, Closure $next, $guard, $guest = false)
     {
         try {
-            $this->validJwt($request, $guard, $guest);
+            $this->JWTValid($request, $guard, $guest);
         } catch (Exception $e) {
             if ($e instanceof TokenInvalidException) {
                 throw new AccessDeniedHttpException('Token Error');
             } else if ($e instanceof TokenExpiredException) {
                 throw new ConflictHttpException('Token Expired');
             } else {
-                throw new HttpException($e->getMessage());
+                throw new HttpException(500, $e->getMessage());
             }
         }
 
@@ -40,26 +41,18 @@ class JwtAuth
     }
 
     /**
-     * @param $request
-     * @param $guard
-     * @param $guest
+     * @param Request $request
+     * @param         $guard
+     * @param         $guest
      */
-    private function validJwt($request, $guard, $guest)
+    private function JWTValid($request, $guard, $guest)
     {
-        $this->parseJwt($guard);
-        /*if ($guest && $request->header('authorization')) {
-            $this->parseJwt($guard);
-        } elseif ( ! $guest) {
-            $this->parseJwt($guard);
-        }*/
-    }
-
-    /**
-     * @param $guard
-     */
-    private function parseJwt($guard)
-    {
-        auth()->guard($guard)->user();
-        auth()->guard($guard)->payload();
+        if (
+            ($guest && $request->header('authorization')) ||
+            ! $guest
+        ) {
+            auth($guard)->user();
+            auth($guard)->payload();
+        }
     }
 }
