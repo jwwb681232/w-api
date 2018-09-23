@@ -54,8 +54,8 @@ class AdminMenuController extends BaseController
     /**
      * @SWG\Delete(path="/index.php/api/managers/admin-menus/{id}",
      *   tags={"managers/admin-menus"},
-     *   summary="删除后台菜单",
-     *   description="删除后台菜单",
+     *   summary="软删除后台菜单",
+     *   description="软删除后台菜单",
      *   operationId="destroy",
      *   consumes={"application/x-www-form-urlencoded"},
      *   @SWG\Parameter(in="path",  name="id",type="integer",  description="菜单id", required=true),

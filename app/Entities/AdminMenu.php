@@ -7,9 +7,11 @@
  */
 namespace App\Entities;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AdminMenu extends Model
 {
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -18,4 +20,6 @@ class AdminMenu extends Model
     protected $fillable = [
         'parent_id', 'name', 'activated',
     ];
+
+    protected $dates = ['deleted_at'];
 }
