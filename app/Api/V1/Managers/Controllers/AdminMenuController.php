@@ -65,8 +65,36 @@ class AdminMenuController extends BaseController
      *   @SWG\Response(response="500", description=""),
      * )
      */
-    public function destroy(int $id)
+    public function destroy($id)
     {
         return ApiSuccess($this->repository->delete($id));
+    }
+
+    /**
+     * @SWG\Patch(path="/index.php/api/managers/admin-menus/{id}",
+     *   tags={"managers/admin-menus"},
+     *   summary="更新后台菜单",
+     *   description="更新后台菜单",
+     *   operationId="update",
+     *   consumes={"application/x-www-form-urlencoded"},
+     *   @SWG\Parameter(in="path",  name="id",type="integer",  description="菜单id", required=true),
+     *   @SWG\Parameter(in="formData",  name="name",type="string",  description="菜单名称", required=false),
+     *   @SWG\Parameter(in="formData",  name="parent_id",type="integer",  description="上级菜单", required=false),
+     *   @SWG\Parameter(in="formData",  name="activated",type="integer",  description="是否启用(0,1)", required=false),
+     *   @SWG\Parameter(in="header",  name="Accept",  type="string",  description="版本号", default="application/x.w-api.v1+json",required=true),
+     *   @SWG\Parameter(in="header",  name="Authorization",  type="string",  description="Token 前面需要加：'bearer '",required=true),
+     *   @SWG\Response(response=403, description="无权限"),
+     *   @SWG\Response(response="500", description=""),
+     * )
+     */
+    public function update(Request $request, $id)
+    {
+        try {
+            $this->validator->with($request->all())->passesOrFail('update');
+
+            return ApiSuccess($this->repository->update($request->all(), $id));
+        } catch (ValidatorException $e) {
+            return ApiValidatorFail($e->getMessageBag());
+        }
     }
 }

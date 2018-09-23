@@ -21,6 +21,8 @@ $api->version('v1',function ($api) {
             $api->post('admin-menus','App\Api\V1\Managers\Controllers\AdminMenuController@store');
             //删除后台菜单
             $api->delete('admin-menus/{id}','App\Api\V1\Managers\Controllers\AdminMenuController@destroy');
+            //更新后台菜单
+            $api->patch('admin-menus/{id}','App\Api\V1\Managers\Controllers\AdminMenuController@update');
             //end region 后台菜单
         });
     });
