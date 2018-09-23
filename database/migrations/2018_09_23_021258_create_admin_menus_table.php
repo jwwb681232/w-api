@@ -15,7 +15,7 @@ class CreateAdminMenusTable extends Migration
     {
         Schema::create('admin_menus', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('parent_id');
+            $table->unsignedInteger('parent_id')->default(0);
             $table->string('name',255);
             $table->boolean('activated')->default(1);
             $table->timestamps();

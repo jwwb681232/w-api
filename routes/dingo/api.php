@@ -16,6 +16,10 @@ $api->version('v1',function ($api) {
             $api->get('auth/info','App\Api\V1\Managers\Controllers\AuthController@info');
             //登出
             $api->post('auth/logout','App\Api\V1\Managers\Controllers\AuthController@logout');
+            //region 后台菜单
+            //创建后台菜单
+            $api->post('admin-menus','App\Api\V1\Managers\Controllers\AdminMenuController@store');
+            //end region 后台菜单
         });
     });
 
