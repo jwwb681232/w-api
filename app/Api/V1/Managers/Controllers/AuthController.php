@@ -8,9 +8,9 @@
 
 namespace App\Api\V1\Managers\Controllers;
 
-use App\Api\V1\Managers\Criteria\Auth\LoginCriteria;
 use Illuminate\Http\Request;
 use App\Api\V1\Managers\Validators\AuthValidator;
+use App\Api\V1\Managers\Criteria\Auth\LoginCriteria;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Illuminate\Routing\Controller as BaseController;
 use App\Api\V1\Managers\Repositories\ManagerRepository;
