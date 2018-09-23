@@ -50,4 +50,23 @@ class AdminMenuController extends BaseController
             return ApiValidatorFail($e->getMessageBag());
         }
     }
+
+    /**
+     * @SWG\Delete(path="/index.php/api/managers/admin-menus/{id}",
+     *   tags={"managers/admin-menus"},
+     *   summary="删除后台菜单",
+     *   description="删除后台菜单",
+     *   operationId="destroy",
+     *   consumes={"application/x-www-form-urlencoded"},
+     *   @SWG\Parameter(in="path",  name="id",type="integer",  description="菜单id", required=true),
+     *   @SWG\Parameter(in="header",  name="Accept",  type="string",  description="版本号", default="application/x.w-api.v1+json",required=true),
+     *   @SWG\Parameter(in="header",  name="Authorization",  type="string",  description="Token 前面需要加：'bearer '",required=true),
+     *   @SWG\Response(response=403, description="无权限"),
+     *   @SWG\Response(response="500", description=""),
+     * )
+     */
+    public function destroy(int $id)
+    {
+        return ApiSuccess($this->repository->delete($id));
+    }
 }
