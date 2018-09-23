@@ -26,7 +26,7 @@ class AddDeletedAtToAdminMenusTable extends Migration
     public function down()
     {
         Schema::table('admin_menus', function (Blueprint $table) {
-            //
+            $table->dropColumn('deleted_at');
         });
     }
 }
