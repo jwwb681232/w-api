@@ -15,6 +15,7 @@ class DropFieldActivatedFromAdminMenusTable extends Migration
     {
         Schema::table('admin_menus', function (Blueprint $table) {
             //
+            $table->dropColumn('activated');
         });
     }
 
@@ -27,7 +28,6 @@ class DropFieldActivatedFromAdminMenusTable extends Migration
     {
         Schema::table('admin_menus', function (Blueprint $table) {
             //
-            $table->dropColumn('activated');
         });
     }
 }
