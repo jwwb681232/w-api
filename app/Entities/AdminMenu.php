@@ -18,7 +18,7 @@ class AdminMenu extends Model
      * @var array
      */
     protected $fillable = [
-        'parent_id', 'name', 'activated',
+        'parent_id', 'name',
     ];
 
     protected $dates = ['deleted_at'];

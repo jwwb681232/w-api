@@ -25,7 +25,7 @@ class AdminMenuValidator extends LaravelValidator implements ValidatorInterface
                 //'id' => 'required|string|between:1,255',
                 'name' => 'sometimes|string|between:1,255',
                 'parent_id'=>'sometimes|integer|min:0',
-                'activated'=>'sometimes|boolean',
+                //'activated'=>'sometimes|boolean',
             ],
         ];
 
