@@ -18,6 +18,11 @@ class AdminMenuRepository extends BaseRepository
         return AdminMenu::class;
     }
 
+    /**
+     * @param $request
+     *
+     * @return mixed
+     */
     public function search($request)
     {
         $this->applyCriteria();
@@ -35,7 +40,7 @@ class AdminMenuRepository extends BaseRepository
         $data['page_count'] = ceil($data['count'] / $pageSize);
 
         $parserResult = $this->parserResult(
-            $condition->offset($offset)->limit($pageSize)->get(['id','name'])
+            $condition->offset($offset)->limit($pageSize)->orderBy('id','desc')->get(['id','name'])
         );
 
         $data['list'] = $parserResult['data'];
