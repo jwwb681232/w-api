@@ -38,6 +38,17 @@ $api->version('v1',function ($api) {
             //角色列表
             $api->get('roles','App\Api\V1\Managers\Controllers\RoleController@index');
             //</editor-fold>
+
+            //<editor-fold desc="权限">
+            //创建权限
+            $api->post('permissions','App\Api\V1\Managers\Controllers\PermissionController@store');
+            //删除权限
+            $api->delete('permissions/{id}','App\Api\V1\Managers\Controllers\PermissionController@destroy');
+            //更新权限
+            $api->patch('permissions/{id}','App\Api\V1\Managers\Controllers\PermissionController@update');
+            //权限列表
+            $api->get('permissions','App\Api\V1\Managers\Controllers\PermissionController@index');
+            //</editor-fold>
         });
     });
 
