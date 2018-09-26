@@ -118,7 +118,6 @@ class AdminMenuController extends BaseController
     public function index(Request $request)
     {
         try {
-            $this->validator->with($request->all())->passesOrFail('update');
             $this->repository->pushCriteria(IndexCriteria::class);
             $this->repository->setPresenter(IndexPresenter::class);
 

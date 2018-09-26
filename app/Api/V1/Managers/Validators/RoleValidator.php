@@ -19,6 +19,10 @@ class RoleValidator extends LaravelValidator implements ValidatorInterface
                 'name'    => 'required|max:255',
                 'guard_name' => 'sometimes|max:255|in:admin,web',
             ],
+            'update'    => [
+                'name'    => 'sometimes|max:255',
+                'guard_name' => 'sometimes|max:255|in:admin,web',
+            ],
         ];
 
     protected $messages
