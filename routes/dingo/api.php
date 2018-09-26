@@ -16,7 +16,8 @@ $api->version('v1',function ($api) {
             $api->get('auth/info','App\Api\V1\Managers\Controllers\AuthController@info');
             //登出
             $api->post('auth/logout','App\Api\V1\Managers\Controllers\AuthController@logout');
-            //region 后台菜单
+
+            //<editor-fold desc="后台菜单">
             //创建后台菜单
             $api->post('admin-menus','App\Api\V1\Managers\Controllers\AdminMenuController@store');
             //删除后台菜单
@@ -25,7 +26,18 @@ $api->version('v1',function ($api) {
             $api->patch('admin-menus/{id}','App\Api\V1\Managers\Controllers\AdminMenuController@update');
             //后台菜单列表
             $api->get('admin-menus','App\Api\V1\Managers\Controllers\AdminMenuController@index');
-            //end region 后台菜单
+            //</editor-fold>
+
+            //<editor-fold desc="角色">
+            //创建角色
+            $api->post('roles','App\Api\V1\Managers\Controllers\RoleController@store');
+            //删除角色
+            $api->delete('roles/{id}','App\Api\V1\Managers\Controllers\RoleController@destroy');
+            //更新角色
+            $api->patch('roles/{id}','App\Api\V1\Managers\Controllers\RoleController@update');
+            //角色列表
+            $api->get('roles','App\Api\V1\Managers\Controllers\RoleController@index');
+            //</editor-fold>
         });
     });
 
