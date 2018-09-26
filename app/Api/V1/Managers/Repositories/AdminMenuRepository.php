@@ -28,9 +28,9 @@ class AdminMenuRepository extends BaseRepository
 
         $condition = $this->model;
 
-        $data['cur_page'] = $curPage;
-
         $data['count'] = $condition->count();
+
+        $data['cur_page'] = $curPage;
 
         $data['page_count'] = ceil($data['count'] / $pageSize);
 
