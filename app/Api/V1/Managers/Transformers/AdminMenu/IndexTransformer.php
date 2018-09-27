@@ -28,9 +28,9 @@ class IndexTransformer extends TransformerAbstract
     public function transform(AdminMenu $model)
     {
         return [
-            'id'=>$model->id,
-            'name'=>$model->name,
+            'id'             => $model->id,
+            'name'           => $model->name,
+            'permission_tag' => $model->permission_tag,
         ];
-        //return $model->toArray();
     }
 }

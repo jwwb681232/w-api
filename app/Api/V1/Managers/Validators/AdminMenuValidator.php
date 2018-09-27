@@ -13,24 +13,26 @@ use \Prettus\Validator\Contracts\ValidatorInterface;
 
 class AdminMenuValidator extends LaravelValidator implements ValidatorInterface
 {
-    protected $rules= [
-            'store' => [
-                'name' => 'required|string|between:1,255',
-                'parent_id'=>'sometimes|integer|min:0',
+    protected $rules
+        = [
+            'store'   => [
+                'name'           => 'required|string|max:255',
+                'permission_tag' => 'required|string|max:255',
+                'parent_id'      => 'sometimes|integer|min:0',
             ],
             'destroy' => [
-                'id' => 'required|integer|min:1'
+                'id' => 'required|integer|min:1',
             ],
-            'update' => [
-                //'id' => 'required|string|between:1,255',
-                'name' => 'sometimes|string|between:1,255',
-                'parent_id'=>'sometimes|integer|min:0',
-                //'activated'=>'sometimes|boolean',
+            'update'  => [
+                'name'           => 'sometimes|string|max:255',
+                'permission_tag' => 'sometimes|string|max:255',
+                'parent_id'      => 'sometimes|integer|min:0',
             ],
         ];
 
-    protected $messages = [
-        //'email.email'=>'1111111111111'
-    ];
+    protected $messages
+        = [
+            //'email.email'=>'1111111111111'
+        ];
 
 }
