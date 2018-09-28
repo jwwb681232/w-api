@@ -17,9 +17,24 @@ class WApiSeeder extends Seeder
      */
     public function run()
     {
+        $this->managerUser();
+
         $systemMenuId = $this->system();
+
         $this->menu($systemMenuId);
 
+    }
+
+    /**
+     * create manager user
+     */
+    public function managerUser()
+    {
+        $manager           = new \App\Entities\Manager();
+        $manager->name     = 'admin';
+        $manager->email    = 'admin@admin.com';
+        $manager->password = bcrypt('123456');
+        $manager->save();
     }
 
     /**
