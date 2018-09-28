@@ -22,4 +22,9 @@ class AdminMenu extends Model
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function permissions()
+    {
+        return $this->hasMany(Permission::class,'menu_id');
+    }
 }

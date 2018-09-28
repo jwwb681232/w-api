@@ -65,7 +65,7 @@ class WApiBaseDataSeeder extends Seeder
         $menu                  = new \App\Entities\AdminMenu();
         $menu->name            = '后台菜单';
         $menu->permission_name = 'admin.admin-menus.index';
-        $menu->parent_id       = $parentId->id;
+        $menu->parent_id       = $parentId;
         $menu->save();
 
         $permission             = new \App\Entities\Permission();
@@ -101,7 +101,7 @@ class WApiBaseDataSeeder extends Seeder
         $menu                  = new \App\Entities\AdminMenu();
         $menu->name            = '权限';
         $menu->permission_name = 'admin.permissions.index';
-        $menu->parent_id       = $parentId->id;
+        $menu->parent_id       = $parentId;
         $menu->save();
 
         $permission             = new \App\Entities\Permission();
@@ -137,7 +137,7 @@ class WApiBaseDataSeeder extends Seeder
         $menu                  = new \App\Entities\AdminMenu();
         $menu->name            = '角色';
         $menu->permission_name = 'admin.roles.index';
-        $menu->parent_id       = $parentId->id;
+        $menu->parent_id       = $parentId;
         $menu->save();
 
         $permission             = new \App\Entities\Permission();
