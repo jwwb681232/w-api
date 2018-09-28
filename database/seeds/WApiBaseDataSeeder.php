@@ -19,10 +19,18 @@ class WApiBaseDataSeeder extends Seeder
     {
         $this->managerUser();
 
-        $systemMenuId = $this->system();
+        $systemMenuId = $this->AdminMenusSystem();
 
-        $this->menu($systemMenuId);
+        $this->AdminMenusMenu($systemMenuId);
 
+        $this->AdminMenusPermission($systemMenuId);
+        
+        $this->AdminMenusRole($systemMenuId);
+
+        $this->role();
+
+        $this->assignRole();
+        
     }
 
     /**
@@ -40,7 +48,7 @@ class WApiBaseDataSeeder extends Seeder
     /**
      * @return mixed
      */
-    public function system()
+    public function AdminMenusSystem()
     {
         $systemMenu                  = new \App\Entities\AdminMenu();
         $systemMenu->name            = '系统管理';
@@ -50,7 +58,7 @@ class WApiBaseDataSeeder extends Seeder
 
         $permission             = new \App\Entities\Permission();
         $permission->name       = 'admin.systems.index';
-        $permission->guard_name = 'admin';
+        $permission->guard_name = 'manager';
         $permission->menu_id    = $systemMenu->id;
         $permission->save();
 
@@ -60,7 +68,7 @@ class WApiBaseDataSeeder extends Seeder
     /**
      * @param $parentId
      */
-    public function menu($parentId)
+    public function AdminMenusMenu($parentId)
     {
         $menu                  = new \App\Entities\AdminMenu();
         $menu->name            = '后台菜单';
@@ -70,25 +78,25 @@ class WApiBaseDataSeeder extends Seeder
 
         $permission             = new \App\Entities\Permission();
         $permission->name       = 'admin.admin-menus.index';
-        $permission->guard_name = 'admin';
+        $permission->guard_name = 'manager';
         $permission->menu_id    = $menu->id;
         $permission->save();
 
         $permission             = new \App\Entities\Permission();
         $permission->name       = 'admin.admin-menus.create';
-        $permission->guard_name = 'admin';
+        $permission->guard_name = 'manager';
         $permission->menu_id    = $menu->id;
         $permission->save();
 
         $permission             = new \App\Entities\Permission();
         $permission->name       = 'admin.admin-menus.update';
-        $permission->guard_name = 'admin';
+        $permission->guard_name = 'manager';
         $permission->menu_id    = $menu->id;
         $permission->save();
 
         $permission             = new \App\Entities\Permission();
         $permission->name       = 'admin.admin-menus.delete';
-        $permission->guard_name = 'admin';
+        $permission->guard_name = 'manager';
         $permission->menu_id    = $menu->id;
         $permission->save();
     }
@@ -96,7 +104,7 @@ class WApiBaseDataSeeder extends Seeder
     /**
      * @param $parentId
      */
-    public function permission($parentId)
+    public function AdminMenusPermission($parentId)
     {
         $menu                  = new \App\Entities\AdminMenu();
         $menu->name            = '权限';
@@ -106,25 +114,25 @@ class WApiBaseDataSeeder extends Seeder
 
         $permission             = new \App\Entities\Permission();
         $permission->name       = 'admin.permissions.index';
-        $permission->guard_name = 'admin';
+        $permission->guard_name = 'manager';
         $permission->menu_id    = $menu->id;
         $permission->save();
 
         $permission             = new \App\Entities\Permission();
         $permission->name       = 'admin.permissions.create';
-        $permission->guard_name = 'admin';
+        $permission->guard_name = 'manager';
         $permission->menu_id    = $menu->id;
         $permission->save();
 
         $permission             = new \App\Entities\Permission();
         $permission->name       = 'admin.permissions.update';
-        $permission->guard_name = 'admin';
+        $permission->guard_name = 'manager';
         $permission->menu_id    = $menu->id;
         $permission->save();
 
         $permission             = new \App\Entities\Permission();
         $permission->name       = 'admin.permissions.delete';
-        $permission->guard_name = 'admin';
+        $permission->guard_name = 'manager';
         $permission->menu_id    = $menu->id;
         $permission->save();
     }
@@ -132,7 +140,7 @@ class WApiBaseDataSeeder extends Seeder
     /**
      * @param $parentId
      */
-    public function role($parentId)
+    public function AdminMenusRole($parentId)
     {
         $menu                  = new \App\Entities\AdminMenu();
         $menu->name            = '角色';
@@ -142,26 +150,51 @@ class WApiBaseDataSeeder extends Seeder
 
         $permission             = new \App\Entities\Permission();
         $permission->name       = 'admin.roles.index';
-        $permission->guard_name = 'admin';
+        $permission->guard_name = 'manager';
         $permission->menu_id    = $menu->id;
         $permission->save();
 
         $permission             = new \App\Entities\Permission();
         $permission->name       = 'admin.roles.create';
-        $permission->guard_name = 'admin';
+        $permission->guard_name = 'manager';
         $permission->menu_id    = $menu->id;
         $permission->save();
 
         $permission             = new \App\Entities\Permission();
         $permission->name       = 'admin.roles.update';
-        $permission->guard_name = 'admin';
+        $permission->guard_name = 'manager';
         $permission->menu_id    = $menu->id;
         $permission->save();
 
         $permission             = new \App\Entities\Permission();
         $permission->name       = 'admin.roles.delete';
-        $permission->guard_name = 'admin';
+        $permission->guard_name = 'manager';
         $permission->menu_id    = $menu->id;
         $permission->save();
+    }
+
+    /**
+     * create super_admin role
+     */
+    public function role()
+    {
+        $role             = new \App\Entities\Role();
+        $role->name       = 'super_admin';
+        $role->guard_name = 'manager';
+        $role->save();
+    }
+
+    /**
+     * assign role to manager
+     */
+    public function assignRole()
+    {
+        $managerModel = new \App\Entities\Manager();
+        $manager      = $managerModel->first();
+        $manager->assignRole('super_admin');
+
+        /*$manager = new \App\Entities\Manager();
+        $manager->first();
+        $manager->assignRole('super_admin');*/
     }
 }

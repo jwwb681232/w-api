@@ -8,10 +8,12 @@
 
 namespace App\Entities;
 
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 class Manager extends Authenticatable implements JWTSubject
 {
+    use HasRoles;
     /**
      * 表名
      *

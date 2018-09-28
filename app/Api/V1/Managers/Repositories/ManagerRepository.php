@@ -39,9 +39,10 @@ class ManagerRepository extends BaseRepository
             throw new ValidatorException(new MessageBag(['Incorrect password for account']));
         }
 
-        $token = auth('manager')->attempt(['id' => $manager->id]);
-
-        return ['manager' => $manager, 'token' => $token];
+        return [
+            'manager' => $manager,
+            'token'   => $this->getToken($manager->id),
+        ];
 
     }
 
@@ -56,11 +57,24 @@ class ManagerRepository extends BaseRepository
         $data['name']     = $request->name;
         $data['email']    = $request->email;
         $data['password'] = bcrypt($request->password);
-        if ($manager = $this->create($data)) {
-            $token = auth('manager')->attempt(['id' => $manager->id]);
 
-            return ['manager' => $manager, 'token' => $token];
+        if ($manager = $this->create($data)) {
+            return [
+                'manager' => $manager,
+                'token'   => $this->getToken($manager->id),
+            ];
         }
+
         throw new ValidatorException(new MessageBag(['Http Exception']));
+    }
+
+    /**
+     * @param $managerId
+     *
+     * @return bool|string
+     */
+    private function getToken($managerId)
+    {
+        return auth('manager')->attempt(['id' => $managerId]);
     }
 }
