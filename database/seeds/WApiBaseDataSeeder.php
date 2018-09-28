@@ -192,5 +192,10 @@ class WApiBaseDataSeeder extends Seeder
         $managerModel = new \App\Entities\Manager();
         $manager      = $managerModel->first();
         $manager->assignRole('super_admin');
+
+        $permissionModel = new \App\Entities\Permission();
+        $roleModel = new \App\Entities\Role();
+        $role = $roleModel->first();
+        $role->givePermissionTo($permissionModel->all());
     }
 }

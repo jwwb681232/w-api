@@ -40,8 +40,10 @@ class ManagerRepository extends BaseRepository
         }
 
         return [
-            'manager' => $manager,
-            'token'   => $this->getToken($manager->id),
+            'manager'     => $manager->toArray(),
+            'token'       => $this->getToken($manager->id),
+            'role'        => $manager->getRoleNames(),
+            'permissions' => array_column($manager->getAllPermissions()->toArray(),'name'),
         ];
 
     }

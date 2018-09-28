@@ -62,7 +62,7 @@ class AuthController extends BaseController
      *   description="登录",
      *   operationId="auth-login",
      *   consumes={"application/x-www-form-urlencoded"},
-     *   @SWG\Parameter(in="formData",  name="email",type="string",  description="邮箱", default="wx497657341@qq.com",required=true),
+     *   @SWG\Parameter(in="formData",  name="email",type="string",  description="邮箱", default="admin@admin.com",required=true),
      *   @SWG\Parameter(in="formData",  name="password",type="string",  description="密码",default="123456", required=true),
      *   @SWG\Parameter(in="header",  name="Content-Type",  type="string",  description="application/x-www-form-urlencoded", default="application/x-www-form-urlencoded",required=true),
      *   @SWG\Parameter(in="header",  name="Accept",  type="string",  description="版本号", default="application/x.w-api.v1+json",required=true),
