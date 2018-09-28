@@ -8,7 +8,7 @@
 
 use Illuminate\Database\Seeder;
 
-class WApiSeeder extends Seeder
+class WApiBaseDataSeeder extends Seeder
 {
     /**
      * Run the database seeds.
