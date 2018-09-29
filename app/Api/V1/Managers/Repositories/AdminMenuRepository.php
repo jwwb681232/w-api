@@ -48,4 +48,30 @@ class AdminMenuRepository extends BaseRepository
         return $data;
     }
 
+    /**
+     * 树形排序
+     * @param array $data   需要排序的分类数据
+     * @return array        多维数组
+     */
+    public function sortTreeList($data)
+    {
+        if (!is_array($data)){
+            $data = $data->toArray();
+        }
+        $tree = array();
+        $tmpMap = array();
+        foreach ($data as $k => $v) {
+            $tmpMap[$v['id']] = $v;
+        }
+        foreach ($data as $value) {
+            if (isset($tmpMap[$value['parent_id']])) {
+                $tmpMap[$value['parent_id']]['child'][] = &$tmpMap[$value['id']];
+            } else {
+                $tree[] = &$tmpMap[$value['id']];
+            }
+        }
+        unset($tmpMap);
+        return $tree;
+    }
+
 }

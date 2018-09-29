@@ -8,22 +8,22 @@
 
 namespace App\Api\V1\Managers\Controllers;
 
+use App\Api\V1\Managers\Services\ManagerService;
 use Illuminate\Http\Request;
 use App\Api\V1\Managers\Validators\AuthValidator;
 use App\Api\V1\Managers\Criteria\Auth\LoginCriteria;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Illuminate\Routing\Controller as BaseController;
-use App\Api\V1\Managers\Repositories\ManagerRepository;
 
 class AuthController extends BaseController
 {
-    public $repository;
     public $validator;
+    public $managerService;
 
-    public function __construct(ManagerRepository $repository, AuthValidator $validator)
+    public function __construct(ManagerService $managerService, AuthValidator $validator)
     {
-        $this->repository = $repository;
-        $this->validator  = $validator;
+        $this->managerService = $managerService;
+        $this->validator      = $validator;
     }
 
     /**
@@ -47,7 +47,7 @@ class AuthController extends BaseController
     {
         try {
             $this->validator->with($request->all())->passesOrFail('register');
-            $data = $this->repository->register($request);
+            $data = $this->managerService->register($request);
 
             return ApiSuccess($data);
         } catch (ValidatorException $e) {
@@ -74,8 +74,8 @@ class AuthController extends BaseController
     {
         try {
             $this->validator->with($request->all())->passesOrFail('login');
-            $this->repository->pushCriteria(LoginCriteria::class);
-            $data = $this->repository->login($request);
+            $this->managerService->managerRepository->pushCriteria(LoginCriteria::class);
+            $data = $this->managerService->login($request);
 
             return ApiSuccess($data);
         } catch (ValidatorException $e) {
@@ -98,7 +98,7 @@ class AuthController extends BaseController
      */
     public function logout(Request $request)
     {
-        return ApiSuccess(auth('manager')->logout(true));
+        return ApiSuccess(auth('manager')->logout());
     }
 
     /**
@@ -116,6 +116,8 @@ class AuthController extends BaseController
      */
     public function info(Request $request)
     {
-        return ApiSuccess(auth('manager')->user());
+        return ApiSuccess(
+            $this->managerService->getInfo(auth('manager')->user())
+        );
     }
 }
