@@ -52,6 +52,7 @@ class ManagerService
 
     /**
      * login
+     *
      * @param $request
      *
      * @return mixed
@@ -74,6 +75,7 @@ class ManagerService
 
     /**
      * user info
+     *
      * @param Manager $manager
      *
      * @return mixed
@@ -81,22 +83,23 @@ class ManagerService
     public function getInfo(Manager $manager)
     {
         $hasPermissions = array_column($manager->getAllPermissions()->toArray(), 'name');
-        $adminMenus     = $this->adminMenuRepository->all(['id','name','parent_id','permission_name']);
+        $adminMenus     = $this->adminMenuRepository->all(['id', 'name', 'parent_id', 'permission_name']);
         $info           = $manager->toArray();
         $hasMenus       = $this->permissionMenus($hasPermissions, $adminMenus);
-        unset($info['roles'],$info['permissions']);
+        unset($info['roles'], $info['permissions']);
 
         $data['info']        = $info;
         $data['token']       = $this->managerRepository->getToken($manager->id);
-        $data['roles']        = $manager->getRoleNames();
+        $data['roles']       = $manager->getRoleNames();
         $data['permissions'] = $hasPermissions;
-        $data['menus']       = $this->adminMenuRepository->sortTreeList($hasMenus);
+        $data['menus']       = $this->adminMenuRepository->tree($hasMenus);
 
         return $data;
     }
 
     /**
      * get user has permission menus
+     *
      * @param array $hasPermissions
      * @param       $menus
      *

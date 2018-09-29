@@ -49,11 +49,12 @@ class AdminMenuRepository extends BaseRepository
     }
 
     /**
-     * 树形排序
-     * @param array $data   需要排序的分类数据
-     * @return array        多维数组
+     * menu tree list
+     * @param $data
+     *
+     * @return array
      */
-    public function sortTreeList($data)
+    public function tree($data)
     {
         if (!is_array($data)){
             $data = $data->toArray();
