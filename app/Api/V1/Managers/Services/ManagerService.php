@@ -69,8 +69,10 @@ class ManagerService
         if ( ! Hash::check($request->password, $manager->password)) {
             throw new ValidatorException(new MessageBag(['Incorrect password for account']));
         }
+        $data['token'] = $this->managerRepository->getToken($manager->id);
 
-        return $this->getInfo($manager);
+        return $data;
+        //return $this->getInfo($manager);
     }
 
     /**

@@ -50,6 +50,12 @@ class WApiBaseDataSeeder extends Seeder
      */
     public function AdminMenusSystem()
     {
+        $dashboardMenu                  = new \App\Entities\AdminMenu();
+        $dashboardMenu->name            = '仪表盘';
+        $dashboardMenu->permission_name = 'admin.dashboard.index';
+        $dashboardMenu->parent_id       = 0;
+        $dashboardMenu->save();
+
         $systemMenu                  = new \App\Entities\AdminMenu();
         $systemMenu->name            = '系统管理';
         $systemMenu->permission_name = 'admin.systems.index';
