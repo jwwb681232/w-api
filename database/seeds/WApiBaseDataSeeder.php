@@ -56,6 +56,12 @@ class WApiBaseDataSeeder extends Seeder
         $dashboardMenu->parent_id       = 0;
         $dashboardMenu->save();
 
+        $dashboardPermission             = new \App\Entities\Permission();
+        $dashboardPermission->name       = 'admin.dashboard.index';
+        $dashboardPermission->guard_name = 'manager';
+        $dashboardPermission->menu_id    = $dashboardMenu->id;
+        $dashboardPermission->save();
+
         $systemMenu                  = new \App\Entities\AdminMenu();
         $systemMenu->name            = '系统管理';
         $systemMenu->permission_name = 'admin.systems.index';
